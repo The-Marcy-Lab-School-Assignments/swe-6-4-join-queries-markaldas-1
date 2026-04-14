@@ -21,7 +21,7 @@ const getBookmarksByUsername = async (username) => {
 //    A bookmark with two tags should appear twice (once per tag).
 //    Return an array of objects. Each object should have: title, url, tag_name.
 const getBookmarksWithAllTags = async () => {
-  const { rows } = await pool.query('SELECT bookmarks.title, bookmarks.url, tags.name FROM bookmarks INNER JOIN bookmark_tags ON bookmarks.bookmark_id = bookmark_tags.bookmark_id INNER JOIN tags ON bookmark_tags.tag_id = tags.tag_id GROUP BY bookmarks.title, bookmarks.url, tags.name HAVING COUNT(bookmark_tags.tag_id) >= 1;');
+  const { rows } = await pool.query('SELECT bookmarks.title, bookmarks.url, tags.name AS tag_name FROM bookmarks INNER JOIN bookmark_tags ON bookmarks.bookmark_id = bookmark_tags.bookmark_id INNER JOIN tags ON bookmark_tags.tag_id = tags.tag_id;');
   return rows;
 };
 
